@@ -1,0 +1,358 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Simple Task Manager</title>
+
+<style>
+
+  body {
+
+    font-family: Arial, sans-serif;
+
+    background-color: #e0f7fa; /* light teal background */
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 50px;
+
+    position: relative;
+
+  }
+
+
+
+  .container {
+
+    background-color: #ffffff;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+
+    width: 100%;
+
+    max-width: 500px;
+
+  }
+
+
+
+  h1 {
+
+    text-align: center;
+
+    color: #00796b; /* darker teal */
+
+    margin-bottom: 5px;
+
+  }
+
+
+
+  .subtitle {
+
+    text-align: center;
+
+    font-size: 0.9em;
+
+    color: #555;
+
+    margin-bottom: 20px;
+
+  }
+
+
+
+  .input-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 10px;
+
+  }
+
+
+
+  #task-input {
+
+    flex-grow: 1;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #b2dfdb; /* light teal border */
+
+    font-size: 1em;
+
+    max-width: 70%;
+
+  }
+
+
+
+  #add-btn {
+
+    padding: 10px 20px;
+
+    margin-left: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #00796b; /* dark teal button */
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: background-color 0.3s;
+
+  }
+
+
+
+  #add-btn:hover {
+
+    background-color: #004d40; /* darker teal on hover */
+
+  }
+
+
+
+  ul {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin-top: 20px;
+
+  }
+
+
+
+  li {
+
+    background-color: #b2dfdb; /* soft teal for tasks */
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    transition: background-color 0.3s;
+
+  }
+
+
+
+  li.completed {
+
+    text-decoration: line-through;
+
+    color: #555;
+
+    opacity: 0.7;
+
+    background-color: #e0f2f1;
+
+  }
+
+
+
+  .remove-btn {
+
+    background-color: #ff6f61; /* soft red */
+
+    border: none;
+
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+
+  }
+
+
+
+  .remove-btn:hover {
+
+    background-color: #d8433f; /* darker red on hover */
+
+  }
+
+  .version {
+
+    position: fixed;
+
+    bottom: 10px;
+
+    right: 10px;
+
+    font-size: 0.8em;
+
+    color: #004d40; /* darker for visibility */
+
+    font-weight: bold;
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<div class="container">
+
+  <h1>Task Manager</h1>
+
+  <div class="subtitle">by Chatable Websites</div>
+
+  
+
+  <div class="input-container">
+
+    <input type="text" id="task-input" placeholder="Enter a task...">
+
+    <button id="add-btn">Add Task</button>
+
+  </div>
+
+  <ul id="task-list"></ul>
+
+</div>
+
+<div class="version">Version 2</div>
+
+<script>
+
+  const taskInput = document.getElementById('task-input');
+
+  const addBtn = document.getElementById('add-btn');
+
+  const taskList = document.getElementById('task-list');
+
+
+
+  function createTask(taskText) {
+
+    const li = document.createElement('li');
+
+
+
+    const checkbox = document.createElement('input');
+
+    checkbox.type = 'checkbox';
+
+    checkbox.addEventListener('change', () => {
+
+      li.classList.toggle('completed');
+
+    });
+
+
+
+    const span = document.createElement('span');
+
+    span.textContent = taskText;
+
+    span.style.flexGrow = '1';
+
+    span.style.marginLeft = '10px';
+
+
+
+    const removeBtn = document.createElement('button');
+
+    removeBtn.textContent = 'Remove';
+
+    removeBtn.className = 'remove-btn';
+
+    removeBtn.addEventListener('click', () => {
+
+      li.remove();
+
+    });
+
+
+
+    li.appendChild(checkbox);
+
+    li.appendChild(span);
+
+    li.appendChild(removeBtn);
+
+
+
+    taskList.appendChild(li);
+
+  }
+
+
+
+  addBtn.addEventListener('click', () => {
+
+    const taskText = taskInput.value.trim();
+
+    if (taskText) {
+
+      createTask(taskText);
+
+      taskInput.value = '';
+
+      taskInput.focus();
+
+    }
+
+  });
+
+
+
+  taskInput.addEventListener('keypress', (e) => {
+
+    if (e.key === 'Enter') {
+
+      addBtn.click();
+
+    }
+
+  });
+
+</script>
+
+
+
+</body>
+
+</html>
